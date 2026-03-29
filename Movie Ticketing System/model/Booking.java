@@ -21,12 +21,12 @@ public class Booking {
     public void addTicket(Ticket ticket) {
         tickets.add(ticket);
         totalAmount += ticket.calculateFinalPrice();
-    }
+    }//put a ticket and also update the total amount
 
     public void addConcession(ConcessionItem item) {
         this.snacks.add(item); 
         this.totalAmount += item.calculateSubtotal();
-    }
+    }//same as above but change to snacks
 
     public void printReceipt() {
         System.out.println("\n===============================");
@@ -38,7 +38,7 @@ public class Booking {
         System.out.println("\n--- Tickets ---");
         for (Ticket t : tickets) {
             System.out.println("Seat: " + t.getSeatNumber() + " | RM " + t.calculateFinalPrice());
-        }
+        } //print ticket foe every seat and its price
 
         if (!snacks.isEmpty()) {
             System.out.println("\n--- Concessions ---");
@@ -52,7 +52,7 @@ public class Booking {
         System.out.println("===============================");
     }
 
-    // Getters
+    
     public String getBookingID() { return bookingID; }
 
     public Movie getMovie() { return movie; }
@@ -61,6 +61,6 @@ public class Booking {
 
     public double getTotalAmount() { return totalAmount; }
 
-    // Setter
+    // can change no of bookig id
     public void setBookingID(String bookingID) { this.bookingID = bookingID; }
 }
