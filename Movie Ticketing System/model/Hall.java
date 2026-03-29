@@ -31,13 +31,13 @@ public class Hall {
             System.out.println();
         }
     }
-
+//reserve for seat
     public boolean bookSeat(String seatInput) {
         try {
             // Convert "A1" -> Row 0, Col 0
             int rowIndex = Character.toUpperCase(seatInput.charAt(0)) - 'A';
             int colIndex = Character.getNumericValue(seatInput.charAt(1)) - 1;
-
+            // checking for searching is inside or not 
             if (rowIndex >= 0 && rowIndex < rows && colIndex >= 0 && colIndex < cols) {
                 if (seatMap[rowIndex][colIndex] == 'O') {
                     seatMap[rowIndex][colIndex] = 'X'; // Mark as booked
