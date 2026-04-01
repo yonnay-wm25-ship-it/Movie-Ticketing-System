@@ -1,9 +1,9 @@
 package model;
 
-public class User {
-    protected String username;
-    protected String password;
-    protected String role;
+public abstract class User {
+    private String username;
+    private String password;
+    private String role;
 
     public User(String username, String password, String role) {
         this.username = username;
@@ -11,17 +11,16 @@ public class User {
         this.role = role;
     }
 
-    // --- YOUR ORIGINAL LOGIN METHOD ---
+    // login method
     public boolean login(String inputUser, String inputPass) {
         return this.username.equals(inputUser) && this.password.equals(inputPass);
     }
 
-    // --- GETTERS (For Encapsulation Marks) ---
+    // get the upside
     public String getRole() { return role; }
     
     public String getUsername() { return username; }
 
-    // --- POLYMORPHISM OPPORTUNITY ---
     // Adding a generic method that Staff and Admin will change (Override)
     public void displayMenu() {
         System.out.println("Welcome, " + username + ". Access level: " + role);
