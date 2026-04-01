@@ -6,7 +6,7 @@ public class Showtime {
     private String time;
     private boolean[][] seats; // true = booked, false = available
 
-    // Constructor
+    
     public Showtime(Movie movie, Hall hall, String time, int rows, int cols) {
         this.movie = movie;
         this.hall = hall;
