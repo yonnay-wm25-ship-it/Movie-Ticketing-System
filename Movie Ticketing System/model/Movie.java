@@ -15,7 +15,7 @@ public class Movie {
         this.hall = hall; // This will be set when the movie is assigned to a hall 
     }
 
-    // Getters and Setters 
+    // get all the things at upside 
     public Hall getHall() { return hall; }
 
     public String getTitle() { return title; }
