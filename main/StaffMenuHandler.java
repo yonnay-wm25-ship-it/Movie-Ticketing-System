@@ -29,13 +29,27 @@ public class StaffMenuHandler {
                         boolean valid = bookingService.validateTicket(orderId);
                         System.out.println(valid ? "Ticket VALID." : "Ticket INVALID.");
                         break;
-                    case 2:
+                   case 2:
                         concessionService.displayConcessions();
+
+                        if (concessionService.readAllItems().length == 0) {
+                            System.out.println("No concession items available.");
+                            break;
+                         }
+
                         int index = chooseIndex("Select concession index: ", concessionService.readAllItems().length);
+                        if (index == -1) break;
+
                         int stockToAdd = readInt("Stock to add: ");
+
+                        if (stockToAdd <= 0) {
+                        System.out.println("Stock must be positive.");
+                            break;
+                        }
+
                         concessionService.addStock(index, stockToAdd);
-                        System.out.println("Stock added.");
-                        break;
+                            System.out.println("Stock added.");
+                            break;
                     case 0:
                         System.out.println("Logging out...");
                         keepStaffMenuOpen = false;
@@ -86,14 +100,20 @@ public class StaffMenuHandler {
         return parsedText;
     }
 
-    private int chooseIndex(String prompt, int length) throws ArrayIndexOutOfBoundsException {
-        if (length <= 0) {
-            throw new ArrayIndexOutOfBoundsException("No records available.");
-        }
-        int selected = readInt(prompt) - 1;
-        if (selected < 0 || selected >= length) {
-            throw new ArrayIndexOutOfBoundsException("Index out of range.");
-        }
-        return selected;
+    private int chooseIndex(String prompt, int length) {
+    if (length <= 0) {
+        System.out.println("No records available.");
+        return -1;
     }
+
+    while (true) {
+        int selected = readInt(prompt) - 1;
+
+        if (selected >= 0 && selected < length) {
+            return selected;
+        }
+
+        System.out.println("Index out of range. Try again.");
+    }
+}
 }
