@@ -62,24 +62,44 @@ public class Main {
 } while (true);
     }
 
-    private static User login() throws ArrayIndexOutOfBoundsException {
-        System.out.println("\n--- LOGIN ---");
-        System.out.print("Username: ");
-        String username = SCANNER.nextLine();
-        System.out.print("Password: ");
-        String password = SCANNER.nextLine();
-        User user = USER_SERVICE.authenticate(username, password);
-        System.out.println("Welcome, " + user.getName() + " (" + user.getRole() + ")");
-        return user;
+    private static User login() {
+    System.out.println("\n--- LOGIN ---");
+
+    System.out.print("Username: ");
+    String username = SCANNER.nextLine();
+
+    System.out.print("Password: ");
+    String password = SCANNER.nextLine();
+
+    User user = USER_SERVICE.authenticate(username, password);
+
+    if (user == null) {
+        System.out.println("Invalid username or password.");
+        return null;
     }
-private static int showMainMenu() {
-    System.out.println("\n=== CINEMA SYSTEM ===");
-    System.out.println("1. Admin Login");
-    System.out.println("2. Staff Login");
-    System.out.println("3. Customer Login");
-    System.out.println("0. Exit");
-    System.out.print("Choose: ");
-    return Integer.parseInt(SCANNER.nextLine());
+
+    System.out.println("Welcome, " + user.getName() + " (" + user.getRole() + ")");
+    return user;
+}
+
+    private static int showMainMenu() {
+    while (true) {
+        try {
+            System.out.println("\n=== CINEMA SYSTEM ===");
+            System.out.println("1. Admin Login");
+            System.out.println("2. Staff Login");
+            System.out.println("3. Customer Login");
+            System.out.println("0. Exit");
+            System.out.print("Choose: ");
+
+            return InputValidator.parseIntInRange(
+                    SCANNER.nextLine(), 0, 3
+            );
+
+        } catch (Exception e) {
+            System.out.println("Invalid input.");
+        }
+    }
 }
    
 
