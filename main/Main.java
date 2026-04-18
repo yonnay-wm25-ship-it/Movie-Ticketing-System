@@ -18,49 +18,35 @@ public class Main {
     private static final CustomerMenuHandler CUSTOMER_MENU = new CustomerMenuHandler(SCANNER, MOVIE_SERVICE, CONCESSION_SERVICE, BOOKING_SERVICE, PAYMENT_SERVICE);
 
     public static void main(String[] args) {
-        System.out.println("=== CINEMA TICKETING & CONCESSION SYSTEM ===");
-       do {
-    try {
-        int choice = showMainMenu();
+    System.out.println("=== CINEMA TICKETING & CONCESSION SYSTEM ===");
 
-        if (choice == 0) {
-            System.out.println("Exiting system...");
-            break;
+    boolean running = true;
+
+    while (running) {
+        try {
+            int choice = showMainMenu();
+
+            if (choice == 0) {
+                System.out.println("Exiting system...");
+                running = false;
+                continue;
+            }
+
+            User currentUser = login();
+            if (currentUser == null) continue;
+
+            switch (currentUser.getRole().toUpperCase()) {
+                case "ADMIN" -> ADMIN_MENU.run();
+                case "STAFF" -> STAFF_MENU.run();
+                case "CUSTOMER" -> CUSTOMER_MENU.run((Customer) currentUser);
+                default -> System.out.println("Unknown role.");
+            }
+
+        } catch (Exception e) {
+            System.out.println("Error: " + e.getMessage());
         }
-
-        User currentUser = login();
-
-        switch (choice) {
-            case 1:
-                if (currentUser instanceof Admin) {
-                    ADMIN_MENU.run();
-                } else {
-                    System.out.println("Access denied: Not an Admin");
-                }
-                break;
-            case 2:
-                if (currentUser instanceof Staff) {
-                    STAFF_MENU.run();
-                } else {
-                    System.out.println("Access denied: Not Staff");
-                }
-                break;
-            case 3:
-                if (currentUser instanceof Customer) {
-                    CUSTOMER_MENU.run((Customer) currentUser);
-                } else {
-                    System.out.println("Access denied: Not Customer");
-                }
-                break;
-            default:
-                System.out.println("Invalid option.");
-        }
-
-    } catch (Exception e) {
-        System.out.println("Error: " + e.getMessage());
     }
-} while (true);
-    }
+}
 
     private static User login() throws ArrayIndexOutOfBoundsException {
         System.out.println("\n--- LOGIN ---");
